@@ -1,4 +1,4 @@
-import prisma from "../../../config/database";
+import prisma from "../../../configs/database";
 import { Users } from "../../../interfaces/users.interface";
 import bcrypt from "bcrypt";
 
@@ -26,7 +26,7 @@ export const createUser = async (data: Users) => {
     },
   });
 
-  const {password: _, ...userWithoutPassword} = newUser;
+  const { password: _, ...userWithoutPassword } = newUser;
 
-  return { user: userWithoutPassword};
+  return { user: userWithoutPassword };
 };
