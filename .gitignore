@@ -27,3 +27,6 @@ pids
 
 #package
 *-lock.json
+
+# Prisma Client
+src/generated/
