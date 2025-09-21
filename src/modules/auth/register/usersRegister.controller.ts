@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
-import { usersValidator } from "../../../validators/users.validators";
+import { usersRegisterValidator } from "../../../validators/users.validators";
 import { Users } from "../../../interfaces/users.interface";
 import { createUser } from "./usersRegister.service";
 
 export const usersRegister = async (req: Request, res: Response) => {
   const body: Users = req.body;
-  const userValidation: any = usersValidator.validate(body);
+  const userValidation: any = usersRegisterValidator.validate(body);
 
   if (userValidation.error) {
     return res

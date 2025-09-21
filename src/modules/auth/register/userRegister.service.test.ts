@@ -1,4 +1,4 @@
-import prisma from "../../../config/database";
+import prisma from "../../../configs/database";
 import { createUser } from "./usersRegister.service";
 
 jest.mock("../../../config/database", () => ({
@@ -6,12 +6,15 @@ jest.mock("../../../config/database", () => ({
     findUnique: jest.fn(),
     create: jest.fn(),
     count: jest.fn(),
-  }
+  },
 }));
 
 describe("User Register Service", () => {
   it("Deve retornar erro se o email já existir", async () => {
-    (prisma.user.findUnique as jest.Mock).mockResolvedValue({ id: 123, email: "test@email.com" });
+    (prisma.user.findUnique as jest.Mock).mockResolvedValue({
+      id: 123,
+      email: "test@email.com",
+    });
 
     const result = await createUser({
       name: "Matheus",
@@ -29,14 +32,14 @@ describe("User Register Service", () => {
     (prisma.user.create as jest.Mock).mockResolvedValue({
       id: "456",
       name: "Matheus",
-      email: "novo@email.com"
+      email: "novo@email.com",
     });
 
     const result = await createUser({
       name: "Matheus",
       email: "novo@email.com",
       password: "123456",
-      role: "admin"
+      role: "admin",
     });
 
     expect((await result).user).toHaveProperty("id");
