@@ -18,8 +18,7 @@ export const userLogin = async (req: Request, res: Response) => {
   }
 
   return res.status(200).send({
-    message: "Login successful",
-    user: result.user,
-    token: result.newAccesToken,
+    message: "Login successfuly",
+    ...result
   });
 }

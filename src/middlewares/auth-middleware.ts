@@ -17,6 +17,7 @@ export const checkToken = (req: any, res: any, next: any) => {
       }
 
       req.jwt = {...decoded, token};
+      next();
     });
     return;
   }
