@@ -3,6 +3,7 @@ import prisma from "../../../configs/database";
 import { Users } from "../../../interfaces/users.interface";
 import bcrypt from "bcrypt";
 import jsonwebtoken from "jsonwebtoken";
+import authMiddleware from "../../../middlewares/auth-middleware";
 
 export const signUpUser = async (data: Omit<Users, "name" | "role">) => {
   const { email, password } = data;
@@ -20,12 +21,16 @@ export const signUpUser = async (data: Omit<Users, "name" | "role">) => {
     return { error: "Invalid password" };
   }
 
-  const newAccesToken: string = jsonwebtoken.sign(
-    { id: user.id, email: user.email, role: user.role },
-    process.env.JSON_WEB_TOKEN as string,
-    { expiresIn: "24h" }
-  );
+  const payload: any = {
+    id: user.id,
+    email: user.email,
+    role: user.role,
+  }
 
-  const { password: _, ...userWithoutPassword } = user;
-  return { user: userWithoutPassword, newAccesToken };
+  const newAccesToken: string = jsonwebtoken.sign(payload, authMiddleware.MySecretWord,{ expiresIn: "24h" });
+  
+  return { 
+    user: payload, 
+    newAccesToken 
+  };
 };

@@ -20,4 +20,15 @@ model User {
   password  String
   role      String
   createdAt DateTime @default(now())
+  suppliers Supplier[]
+}
+
+model Supplier {
+  id            String    @id @default(uuid())
+  name          String
+  cnpj          String    @unique
+  phone_number  String
+  createdAt     DateTime  @default(now())
+  userId        String
+  user          User      @relation(fields: [userId], references: [id])
 }
