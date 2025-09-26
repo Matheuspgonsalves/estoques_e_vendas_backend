@@ -8,6 +8,10 @@ export const patchSuppliers = async (req: JwtRequest, res: Response) => {
   const body: Suppliers = req.body;
   const supplierId: string = req.params.id;
 
+  if (supplierId == undefined) {
+    return res.status(400).send({message: "Supplier Id cannot be empty"});
+  }
+
   const bodyValidation = suppliersPatchValidator.validate(body);
 
   if (bodyValidation.error) {
