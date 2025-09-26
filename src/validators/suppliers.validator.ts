@@ -8,6 +8,12 @@ export const suppliersValidator: joi.ObjectSchema<Suppliers> = joi.object({
   phone_number: joi.string().required(),
 }).unknown(false);
 
+export const suppliersPatchValidator: joi.ObjectSchema<Suppliers> = joi.object({
+  name: joi.string(),
+  cnpj: joi.string(),
+  phone_number: joi.string(),
+}).unknown(false).min(1);
+
 
 export function documentIsValid(document: string) {
   return cnpj.isValid(document);
